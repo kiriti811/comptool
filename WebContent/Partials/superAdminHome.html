@@ -1,0 +1,56 @@
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.js"></script>
+<script type="text/javascript" ng:autobind
+	src="http://code.angularjs.org/0.9.19/angular-0.9.19.js"></script>
+
+<ul class="nav nav-tabs">
+	<li role="presentation" class="active"><a href ng:click="selected=1">Home</a></li>
+	<li role="presentation"><a href ng:click="selected=2">View Reports</a></li>
+</ul>
+ <ul class="nav navbar-nav navbar-right">
+        <li><a href="#/login">Logout</a></li>
+</ul>
+
+<div class="jumbotron" ng:hide="selected == 2" style="margin-top: 100px;">
+	<h1>Welcome !</h1>
+	<p>Please click on reports to view the University reports</p>
+</div>
+
+<div ng:show="selected == 2">
+    <div class="container"  >
+  		<div class="row">
+    		<div class="col-xs-12">
+      			<h3>University Reports</h3>
+      			<hr>
+    		</div>
+  		</div>
+  		<div>
+  		<form name="universityForm" ng-controller="universityController">
+  			<table class = "table table-striped">
+  				<thead>
+  					<th>University</th>
+  					<th>Average Percentage</th>
+  				</thead>
+  				<tr ng-repeat = "x in reports">
+  					<td>{{x.name}}</td>
+  					<td>{{x.avg}}</td>
+  				</tr>
+  			</table>
+  		</form>
+  		</div>
+  		</div>
+</div>
+<script type="text/javascript" src="js/angular.js"></script>
+<script type="text/javascript" src="js/angular-route.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>

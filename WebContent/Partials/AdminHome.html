@@ -1,0 +1,176 @@
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">	
+	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.js"></script>
+  <script type="text/javascript" ng:autobind src="http://code.angularjs.org/0.9.19/angular-0.9.19.js"></script>
+<body ng:init="selected=1">
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href ng:click="selected=1">Home</a></li>
+    <li role="presentation" ><a href ng:click="selected=2">Add Course</a></li>
+    <li role="presentation" ><a href ng:click="selected=4">Add User</a></li>
+    <li role="presentation" ><a href ng:click="selected=5">Add Department</a></li>
+</ul>
+ <ul class="nav navbar-nav navbar-right">
+        <li><a href="#/login">Logout</a></li>
+</ul>
+
+<div class="jumbotron" ng:hide="selected == 2||selected==4||selected==5" style="margin-top:100px;">
+  				<h1>Welcome Admin!</h1>
+  				<p>Please choose the options to perform operations</p>
+			</div>
+
+<div ng:show="selected == 2">
+    <div class="container"  >
+  		<div class="row">
+    		<div class="col-xs-12">
+      			<h3>Courses</h3>
+      			<hr>
+    		</div>
+  		</div>
+  		<div>
+  		<form name="courseForm" ng-controller="courseController" >
+  			<div class="panel-body"  ng-hide="course.isValid">
+						<label>Course Name</label> 
+						<input type="text" name="cName"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="Course Name" ng-model="course.name" required>
+							<span
+							ng-show='courseForm.cName.$dirty && courseForm.cName.$error.required'>Required</span>
+						 <br/>
+						 <label>Course Number</label> 
+						<input type="text" name="cNumber"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="Course Number" ng-model="course.number" required>
+							<span
+							ng-show='courseForm.cNumber.$dirty && courseForm.cNumber.$error.required'>Required</span>
+						 <br/>
+						<label>Select Instructor</label>
+							<select class="form-control" ng-model="course.selectedInstructor"  style="width: 100px;">
+							<option value="">-- Select Instructor --</option>
+							<option data-ng-repeat="instructor in instructors" value="{{instructor}}">{{instructor}}</option>
+							</select>
+							<br/>
+								 <label>Course Outcomes</label> 
+						<input type="text" name="cOutcomes"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="Course Outcomes" ng-model="course.outcome" required>
+							<span
+							ng-show='courseForm.cOutcome.$dirty && courseForm.cOutcome.$error.required'>Required</span>
+						 <br/>
+						<input type="submit" ng-click="addCourse()" value="Add" class="btn btn-primary"
+							ng-disabled="courseForm.$invalid">					
+				</div>
+				<div class="message" ng-show="courseForm.isValid">
+							<h2>Course Added Successfully..!!</h2>
+							</div>
+  			</form>
+  		</div>
+</div>
+</div>
+
+<div ng:show="selected == 4">
+    <div class="container"  >
+  		<div class="row">
+    		<div class="col-xs-12">
+      			<h3>Registration</h3>
+      			<hr>
+    		</div>
+  		</div>
+  		<div>
+  		<form name="registerForm" ng-controller="registerController" >
+  			<div class="panel-body"  ng-hide="status.isValid">
+  			
+						<label>First Name</label> 
+						<input type="text" name="fname"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="First Name" ng-model="user.firstName" required>
+							<span
+							ng-show='registerForm.fname.$dirty && registerForm.fname.$error.required'>Required</span>
+						 <br/>
+						 <label>Last Name</label> 
+						<input type="text" name="lName"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="Last Name" ng-model="user.lastName" required>
+							<span
+							ng-show='registerForm.lName.$dirty && registerForm.lName.$error.required'>Required</span>
+						 <br/>
+						 <label>Email</label> 
+						<input type="email" name="email"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="Email" ng-model="user.email" required>
+							<span
+							ng-show='registerForm.email.$dirty && registerForm.email.$error.required'>Required</span>
+						 <br/>
+						 <label>Role</label>
+							<select style="width:300px; height:40px;" class="form-control" ng-model="user.role">
+								<option ng-value="Faculty" >Faculty</option>
+								<option ng-value="Student">Student</option>
+							</select>
+							<br/>
+							<label>Department</label>
+							<select style="width:300px; height:40px;" class="form-control" ng-model="user.dept">
+								<option>CIS</option>
+								<option>CS</option>
+							</select>
+							<br/>
+						<input type="submit" ng-click="register()" value="Register" class="btn btn-primary"
+							ng-disabled="registerForm.$invalid">
+							
+				</div>
+				<div class="message" ng-show="status.isValid">
+							<h1>User Added Successfully..!!</h1>
+							</div>
+  			</form>
+  		</div>
+</div>
+</div>
+<div ng:show="selected == 5">
+    <div class="container"  >
+  		<div class="row">
+    		<div class="col-xs-12">
+      			<h3>Department</h3>
+      			<hr>
+    		</div>
+  		</div>
+  		<div>
+  		<form name="deptForm" ng-controller="deptController" >
+  			<div class="panel-body"  ng-hide="department.isValid">
+  			
+						<label>Department Name</label> 
+						<input type="text" name="dName"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="Dept Name" ng-model="dept.name" required>
+							<span
+							ng-show='deptForm.dName.$dirty && deptForm.dName.$error.required'>Required</span>
+						 <br/>
+						 <label>Department Head</label> 
+						<input type="text" name="dHead"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="Dept Head" ng-model="dept.head" required>
+							<span
+							ng-show='deptForm.dHead.$dirty && deptForm.dHead.$error.required'>Required</span>
+						 <br/>
+						 <label>Email</label> 
+						<input type="email" name="email"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="Email" ng-model="dept.email" required>
+							<span
+							ng-show='deptForm.email.$dirty && deptForm.email.$error.required'>Required</span>
+						 <br/>
+						<input type="submit" ng-click="addDept()" value="Add" class="btn btn-primary"
+							ng-disabled="deptForm.$invalid">
+							
+				</div>
+				<div class="message" ng-show="department.isValid">
+							<h1>Department Added Successfully</h1>
+							</div>
+  			</form>
+  		</div>
+</div>
+</div>
+</body>
+<script type="text/javascript" src="js/angular.js"></script>
+	<script type="text/javascript" src="js/angular-route.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>

@@ -1,0 +1,13 @@
+<div ng-controller="AccordionDemoCtrl">
+ 
+  <accordion close-others="oneAtATime">
+    <accordion-group heading="{{group.title}}" ng-model='group.title' ng-repeat="group in groups">
+<a href="#/reservations/{{group.title}}"  ng-click="advstatus=true" ><img style="height:340px;width:600px" ng-src="{{group.image}}"></a>
+ {{group.content}}
+ <div class="caption">
+  <br/>
+        <p><a href="#/reservations/{{group.title}}" class="btn btn-primary" role="button">Book</a></p>
+      </div>
+    </accordion-group>
+  </accordion>
+</div>

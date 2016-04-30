@@ -1,0 +1,103 @@
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.js"></script>
+<script type="text/javascript" ng:autobind
+	src="http://code.angularjs.org/0.9.19/angular-0.9.19.js"></script>
+
+<ul class="nav nav-tabs">
+	<li role="presentation" class="active"><a href ng:click="selected=1">Home</a></li>
+	<li role="presentation"><a href ng:click="selected=2">Practice Tests</a></li>
+	<li role="presentation"><a href ng:click="selected=3">Tests</a></li>
+</ul>
+ <ul class="nav navbar-nav navbar-right">
+        <li><a href="#/login">Logout</a></li>
+</ul>
+
+<div class="jumbotron" ng:hide="selected == 2||selected==3"
+	style="margin-top: 100px;">
+	<h1>Welcome Student!</h1>
+	<p>Please choose the options to perform operations</p>
+</div>
+
+<div ng:show="selected== 2">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Practice Tests</h3>
+				<hr>
+			</div>
+		</div>
+		<form ng-controller="practiceTestController">
+		<label>Select Course</label>
+							<select class="form-control" ng-model="selectedCourse" ng-change="getQuestions(selectedCourse)"  style="width: 100px;">
+							<option value="">-- Select Course --</option>
+							<option data-ng-repeat="course in courses" value="{{course}}">{{course}}</option>
+							</select>
+							<br/>
+				<ul>
+					<li ng-repeat="question in questionPaper.questions">
+					<div>{{question.description}}</div>
+					<ul>
+						<li ng-repeat="option in question.options">
+						<span>
+							<input type="radio" name = "option_question_{{question.id}}" ng-model="question.selected_id" ng-value="option.id"/>
+							{{option.description}}
+						</span>
+						</li>
+					</ul>
+					</li>
+				</ul>
+				<input type="submit" ng-click="submitPracticeTest()" value="Submit" class="btn btn-primary"/>
+				 {{selected_ids}}
+				 {{message}}
+               </div>
+		</form>
+				<div class="message" ng-show="status.isValid">
+					<h1>Success or Failure</h1>
+				</div>
+		</div>
+<div ng:show="selected == 3">
+<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Test</h3>
+				<hr>
+			</div>
+		</div>
+		<form ng-controller="takeTestController">
+				<ul>
+					<li ng-repeat="question in questionPaper.questions">
+					<div>{{question.description}}</div>
+					<ul>
+						<li ng-repeat="option in question.options">
+						<span>
+							<input type="radio" name = "option_question_{{question.id}}" ng-model="question.selected_id" ng-value="option.id"/>
+							{{option.description}}
+						</span>
+						</li>
+					</ul>
+					</li>
+				</ul>
+				<input type="submit" ng-click="submitPracticeTest()" value="Submit" class="btn btn-primary"/>
+				 {{selected_ids}}
+				 {{message}}
+               </div>
+		</form>
+				<div class="message" ng-show="status.isValid">
+					<h1>Success or Failure</h1>
+				</div>
+
+</div>
+<script type="text/javascript" src="js/angular.js"></script>
+<script type="text/javascript" src="js/angular-route.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>

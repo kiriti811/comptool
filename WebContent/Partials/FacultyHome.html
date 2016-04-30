@@ -1,0 +1,136 @@
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">	
+	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.js"></script>
+  <script type="text/javascript" ng:autobind src="http://code.angularjs.org/0.9.19/angular-0.9.19.js"></script>
+<body ng:init="selected=1">
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href ng:click="selected=1">Home</a></li>
+    <li role="presentation"  ><a href ng:click="selected=2 ; reload()">Design Evaluation</a></li>
+    <li role="presentation" ><a href ng:click="selected=3">View Reports</a></li>
+</ul>
+ <ul class="nav navbar-nav navbar-right">
+        <li><a href="#/login">Logout</a></li>
+</ul>
+
+<div class="jumbotron" ng:hide="selected == 2||selected==3" style="margin-top:100px;">
+  				<h1>Welcome Faculty!</h1>
+  				<p>Please choose the options to perform operations</p>
+			</div>
+
+<div ng:show="selected == 2" ng-controller="evaluationController" >
+        <div class="container"  >
+  		<div class="row">
+    		<div class="col-xs-12">
+      			<h3>Design Evaluation</h3>
+      			<hr>
+    		</div>
+  		</div>
+  		<div>
+  		<form name="evaluationForm"   >
+  			<div class="panel-body"  ng-hide="status">
+  				<label>Select Course</label>
+							<select class="form-control" ng-model="evaluation.selectedCourse" ng-change="getOutcome(evaluation.selectedCourse)"  style="width: 100px;">
+							<option value="">-- Select Course --</option>
+							<option data-ng-repeat="course in courses" value="{{course}}">{{course}}</option>
+							</select>
+							<br/>
+							<div class="outcome" ng-show="showOutcome">
+							<label>Select Outcome</label>
+							<select class="form-control" ng-model="evaluation.selectedOutcome"  style="width: 100px;">
+							<option value="">--Select--</option>
+							<option data-ng-repeat="outcome in courseOutcomes" value="{{outcome}}">{{outcome}}</option>
+							</select>
+							<br/>
+							</div>
+							
+						<label>Question</label> 
+						<textarea name="question"
+							style="width:400px;"  class="form-control"
+							placeholder="Question" ng-model="evaluation.question" required></textarea>
+							<span
+							ng-show='evaluationForm.question.$dirty && evaluationForm.question.$error.required'>Required</span>
+						 <br/>
+						 <label>Option 1</label> 
+						<input type="text" name="option1"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="Option 1" ng-model="evaluation.option1" required>
+							<span
+							ng-show='evaluationForm.option1.$dirty && evaluationForm.option1.$error.required'>Required</span>
+						 <br/>
+						  <label>Option 2</label> 
+						<input type="text" name="option2"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="Option 2" ng-model="evaluation.option2" required>
+							<span
+							ng-show='evaluationForm.option2.$dirty && evaluationForm.option2.$error.required'>Required</span>
+						 <br/>
+						  <label>Option 3</label> 
+						<input type="text" name="option3"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="Option 3" ng-model="evaluation.option3" required>
+							<span
+							ng-show='evaluationForm.option3.$dirty && evaluationForm.option3.$error.required'>Required</span>
+						 <br/>
+						 <br/>
+						  <label>Option 4</label> 
+						<input type="text" name="option4"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="Option 4" ng-model="evaluation.option4" required>
+							<span
+							ng-show='evaluationForm.option4.$dirty && evaluationForm.option4.$error.required'>Required</span>
+						 <br/>
+						 <label>Correct Option</label> 
+						<input type="text" name="correctOption"
+							style="width:300px; height:40px;" class="form-control"
+							placeholder="Correct Option" ng-model="evaluation.correctOption" required>
+							<span
+							ng-show='evaluationForm.correctOption.$dirty && evaluationForm.correctOption.$error.required'>Required</span>
+						 <br/>
+						 
+						<input type="submit" ng-click="addEvaluation()" value="Add Question" class="btn btn-primary"
+							ng-disabled="evaluationForm.$invalid">
+							
+				</div>
+				<div class="message" ng-show="status">
+							<h1>Question added successfully</h1>
+							</div>
+  			</form>
+  		</div>
+</div>
+</div>
+
+<div ng:show="selected == 3">
+    <div class="container"  >
+  		<div class="row">
+    		<div class="col-xs-12">
+      			<h3>Test Reports</h3>
+      			<hr>
+    		</div>
+  		</div>
+  		<div>
+  		<form name="reportsForm" ng-controller="evaluationController">
+  			<table class = "table table-striped">
+  				<thead>
+  					<th>Name</th>
+  					<th>Total Questions</th>
+  					<th>Correct Questions</th>
+  					<th>Percentage</th>
+  				</thead>
+  				<tr ng-repeat = "x in reports">
+  					<td>{{x.name}}</td>
+  					<td>{{x.total}}</td>
+  					<td>{{x.score}}</td>
+  					<td>{{((x.score/x.total)*100)| number:0}}</td>
+  				</tr>
+  			</table>
+  		</form>
+  		</div>
+  		</div>
+</div>
+</body>
+<script type="text/javascript" src="js/angular.js"></script>
+	<script type="text/javascript" src="js/angular-route.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>

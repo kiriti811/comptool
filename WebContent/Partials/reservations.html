@@ -1,0 +1,52 @@
+    <div ng-controller="DatepickerDemoCtrl" > 
+      <form style="margin-left:25%;" name="booking" class="form-horizontal" role="form"  ng-submit="post()">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Room Type</label>
+              <select class="form-control" name="title"  data-ng-options="c.name for c in categories" data-ng-model="selectedOption" required>
+        </select> 
+      <span ng-show='booking.title.$error.required'>Select a room Type</span>
+          </div>
+        </div>
+            
+    <div class="row">
+        <div class="col-md-3">
+           <label>Check In Date</label>
+            <p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model='start' is-open="startopen" 
+              datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event, 'startopen')"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3">
+            <label>Check Out Date</label>
+            <p class="input-group">
+               <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="end" is-open="endopen" 
+               datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event, 'endopen')"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
+    </div>
+      <div class="row">
+      <div class="col-md-3">
+      <label>Number of Guests</label>
+      <input type="text" name="guests" class="form-control" ng-model='customer.guests' required>
+      <span class="help-block"></span>
+    </div>
+  </div>
+    <!-- SUBMIT BUTTON -->
+    <div class="row">
+    <div class="col-md-3">
+    <input type="submit" ng-disabled="booking.$invalid" class="btn btn-success btn-lg btn-block">
+    </button>
+    </div>
+  </div>
+  </form>
+ </div>	
+
